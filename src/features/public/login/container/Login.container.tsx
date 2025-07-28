@@ -16,12 +16,12 @@ export const LoginContainer = () => {
         }}
       >
         <Grid
-          size={{ sm: 0, md: 6 }}
+          size={{ xs: 0, md: 6 }}
           sx={{ display: { xs: "none", md: "block" } }}
         >
           <BannerLogin />
         </Grid>
-        <Grid size={{ sm: 12, md: 6 }}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <FormLogin />
         </Grid>
       </Grid>

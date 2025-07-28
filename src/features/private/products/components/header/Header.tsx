@@ -31,17 +31,12 @@ export const Header = () => {
 
   const handleLogout = () => {
     handleCloseMenu();
-    Cookies.set("token", "your_jwt_token_here", {
-      expires: 7,
-      secure: true,
-      sameSite: "strict",
-      path: "/",
-    });
+    Cookies.remove("token", { path: "/" });
     dispatchAuthState({
       type: AuthActionEnum.SetStateData,
       payload: {
         ...authState.state,
-        isAuthenticated: true,
+        isAuthenticated: false,
       },
     });
     navigate(PublicRouteURL.routeToLogin());

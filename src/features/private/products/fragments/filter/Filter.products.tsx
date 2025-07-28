@@ -166,12 +166,14 @@ export const FilterProducts = () => {
           anchor="bottom"
           open={open}
           onClose={() => setOpen(false)}
-          PaperProps={{
-            sx: {
-              borderRadius: "16px 16px 0 0",
-              padding: 2,
-              minHeight: "40vh",
-              maxHeight: "80vh",
+          slotProps={{
+            paper: {
+              sx: {
+                borderRadius: "16px 16px 0 0",
+                padding: 2,
+                minHeight: "40vh",
+                maxHeight: "80vh",
+              },
             },
           }}
         >

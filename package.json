@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "prepare": "husky",
+    "prepare": "husky install",
     "setup:i18n": "tsx src/core/i18n/scripts/parseCSV.ts",
     "test": "vitest",
     "test:watch": "vitest --watch",
@@ -17,8 +17,7 @@
   "lint-staged": {
     "src/**/*.{ts,tsx,js,jsx}": [
       "eslint --fix",
-      "prettier --write",
-      "npm run lint"
+      "prettier --write"
     ]
   },
   "dependencies": {
@@ -40,6 +39,8 @@
     "usehooks-ts": "^3.1.1"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
     "@eslint/js": "^9.30.1",
     "@testing-library/jest-dom": "^6.6.4",
     "@testing-library/react": "^16.3.0",
