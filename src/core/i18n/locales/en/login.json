@@ -1,0 +1,16 @@
+{
+  "banner_title": "Buy cheapest product in Kaldoo",
+  "banner_description": "Gabung dan rasakan cara termudah untuk membeli",
+  "form_title": "Login Now",
+  "form_email_label": "Email",
+  "form_email_placeholder": "example: kaldoo@gmail.com",
+  "form_email_required": "Email is required",
+  "form_email_invalid_format": "Invalid email format",
+  "form_password_label": "Password",
+  "form_password_placeholder": "Input your password",
+  "form_password_required": "Password is required",
+  "form_password_invalid_format": "Invalid password format",
+  "notification_error": "Login Failed",
+  "notification_success": "Login Success",
+  "cta_login": "Login"
+}

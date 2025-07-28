@@ -1,0 +1,41 @@
+{
+  "banner": {
+    "image": {
+      "alt": "image.login",
+      "src": "/images/login/shopping-cart.svg",
+      "width": 387,
+      "height": 282
+    },
+    "title": "login:banner_title",
+    "description": "login:banner_description"
+  },
+  "form": {
+    "title": "login:form_title",
+    "email": {
+      "name": "email",
+      "label": "login:form_email_label",
+      "placeholder": "login:form_email_placeholder",
+      "required": "login:form_email_required",
+      "invalid_format": "login:form_email_invalid_format"
+    },
+    "password": {
+      "name": "password",
+      "label": "login:form_password_label",
+      "placeholder": "login:form_password_placeholder",
+      "required": "login:form_password_required",
+      "minLength": {
+        "value": 8,
+        "message": "login:form_password_invalid_format"
+      }
+    },
+    "cta": {
+      "login": {
+        "label": "login:cta_login"
+      }
+    }
+  },
+  "notification": {
+    "error": "login:notification_error",
+    "success": "login:notification_success"
+  }
+}
