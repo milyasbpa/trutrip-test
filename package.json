@@ -17,7 +17,8 @@
   "lint-staged": {
     "src/**/*.{ts,tsx,js,jsx}": [
       "eslint --fix",
-      "prettier --write"
+      "prettier --write",
+      "npm run lint"
     ]
   },
   "dependencies": {
