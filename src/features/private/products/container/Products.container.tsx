@@ -1,34 +1,41 @@
 import { Grid } from "@mui/material";
+import { styled } from "@mui/system";
 
 import { Header } from "../components/header";
 import { ItemsProducts } from "../fragments/items";
 import { HeaderProducts } from "../fragments/header";
 import { FilterProducts } from "../fragments/filter";
 
+const ProductsWrapper = styled(Grid)(({ theme }) => ({
+  maxWidth: 1200,
+  margin: "0 auto",
+  padding: "6rem 0",
+  [theme.breakpoints.down("lg")]: {
+    padding: "6rem 1rem",
+  },
+}));
+
+const ProductLayout = {
+  header: { sm: 12, md: 12 },
+  filter: { sm: 12, md: 3 },
+  content: { sm: 12, md: 9 },
+};
+
 export const ProductsContainer = () => {
   return (
     <>
       <Header />
-      <Grid
-        container
-        spacing={3}
-        sx={{
-          maxWidth: 1200,
-          marginX: "auto",
-          paddingBlock: "6rem",
-          px: { xs: "1rem", lg: "0rem" },
-        }}
-      >
-        <Grid size={{ sm: 12, md: 12 }}>
+      <ProductsWrapper container spacing={3}>
+        <Grid {...ProductLayout.header}>
           <HeaderProducts />
         </Grid>
-        <Grid size={{ sm: 12, md: 3 }}>
+        <Grid {...ProductLayout.filter}>
           <FilterProducts />
         </Grid>
-        <Grid size={{ sm: 12, md: 9 }}>
+        <Grid {...ProductLayout.content}>
           <ItemsProducts />
         </Grid>
-      </Grid>
+      </ProductsWrapper>
     </>
   );
 };
