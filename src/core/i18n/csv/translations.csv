@@ -15,3 +15,4 @@ login,notification_error,Login Failed
 login,notification_success,Login Success
 login,cta_login,Login
 products,title,Products Catalogue
+products,description,Products Catalogue
