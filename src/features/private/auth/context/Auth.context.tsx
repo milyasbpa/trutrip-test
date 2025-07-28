@@ -36,7 +36,7 @@ const AuthProvider = (props: { children: React.ReactNode }) => {
         isAuthenticated: !!token,
       },
     });
-  }, [token]);
+  }, [token, state.state]);
   return (
     <AuthContext.Provider value={{ state, dispatch }}>
       {props.children}

@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useContext, useMemo } from "react";
+import { useMemo } from "react";
 
 import { useDebounceValue } from "usehooks-ts";
-import { ProductsContext } from "../../context";
+
 import { ProductsReactQueryKey } from "../keys";
 import type {
   GetProductsRequestInterface,
@@ -20,7 +20,6 @@ const fetchProducts = async (payload?: GetProductsRequestInterface) => {
 };
 
 export const useGetProducts = () => {
-  const { state: productsState } = useContext(ProductsContext);
   const [searchParams] = useSearchParams();
   const searchValue = searchParams.get("search") || "";
   const categoryValue = searchParams.get("category") || "";
@@ -35,7 +34,6 @@ export const useGetProducts = () => {
           categoryValue.length && !isNaN(Number(categoryValue))
             ? Number(categoryValue)
             : undefined,
-        // offset: productsState.pagination.offset,
         offset:
           offsetValue.length && !isNaN(Number(offsetValue))
             ? Number(offsetValue)
@@ -43,13 +41,7 @@ export const useGetProducts = () => {
         limit: PAGINATION.LIMIT,
       },
     };
-  }, [
-    debouncedSearch,
-    categoryValue,
-    offsetValue,
-    // productsState.pagination.offset,
-    PAGINATION.LIMIT,
-  ]);
+  }, [debouncedSearch, categoryValue, offsetValue]);
 
   return useQuery<GetProductsResponseInterface[]>({
     queryKey: ProductsReactQueryKey.getProducts(payload),
