@@ -32,7 +32,6 @@ const AuthProvider = (props: { children: React.ReactNode }) => {
     dispatch({
       type: AuthActionEnum.SetStateData,
       payload: {
-        ...state.state,
         isAuthenticated: !!token,
       },
     });
