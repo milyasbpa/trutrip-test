@@ -8,7 +8,7 @@ A modern React + TypeScript + Vite application featuring authentication, product
 
 1. **Clone the repository**
    ```sh
-   git clone <your-repo-url>
+   git clone https://github.com/milyasbpa/trutrip-test
    cd trutrip-test
    ```
 
@@ -49,7 +49,7 @@ A modern React + TypeScript + Vite application featuring authentication, product
 - **/locales & /translations**  
   - Translations are managed in CSV for easy updates by product teams.
   - A script generates i18n JSON files automatically from CSV.
-  - run npm:setupi18n after you finished add translation in CSV file.
+  - Run `npm run setupi18n` after you finished add translation in CSV file.
 
 - **/hooks, /components, /react-query**  
   - Custom hooks, reusable components, and React Query hooks for server state.
@@ -116,6 +116,29 @@ This site is deployed at:
 **[https://trutrip-test.vercel.app/](https://trutrip-test.vercel.app/)**  
 
 ---
+
+## 🧰 Tech Stack
+
+- React + TypeScript
+- Vite
+- Material UI
+- React Query
+- React Hook Form
+- Vitest + React Testing Library
+- ESLint + Prettier + Husky + Commitlint
+- i18next + CSV-based translation
+
+---
+
+## 📦 Data Source
+This project fetches product data from the Platzi Fake Store API:
+
+Endpoint used: https://fakeapi.platzi.com/
+
+Products are filtered and searched client-side after fetching.
+
+Used in combination with React Query for data caching and infinite scroll.
+--
 
 ## 💡 Additional Notes
 
