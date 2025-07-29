@@ -65,7 +65,7 @@ export const CardProducts = ({ product }: Props) => {
       />
       <CardContent>
         <ProductTitle variant="subtitle1">{product.name}</ProductTitle>
-        <ProductPrice>${product.price.toLocaleString("id-ID")}</ProductPrice>
+        <ProductPrice>${product.price.toLocaleString("en-US")}</ProductPrice>
         <ProductDescription variant="caption">
           {product.description}
         </ProductDescription>

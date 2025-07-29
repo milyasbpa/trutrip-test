@@ -1,4 +1,6 @@
 import { Box, Typography, styled } from "@mui/material";
+import { useTranslation } from "react-i18next";
+import staticData from "@/features/private/products/data/static.json";
 
 const Root = styled(Box)({
   display: "flex",
@@ -37,13 +39,12 @@ const Subtitle = styled(Typography)(({ theme }) => ({
 }));
 
 export const HeaderProducts = () => {
+  const { t } = useTranslation();
   return (
     <Root>
       <ContentBox>
-        <Title variant="h1">Produk Makanan paling viral buat kamu!</Title>
-        <Subtitle>
-          Beli paket reseller di Kaldoo dan dapatkan paket konten gratis!
-        </Subtitle>
+        <Title variant="h1">{t(staticData.header.title)}</Title>
+        <Subtitle>{t(staticData.header.subtitle)}</Subtitle>
       </ContentBox>
     </Root>
   );

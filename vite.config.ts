@@ -32,6 +32,8 @@ export default defineConfig({
         "src/core/router/components/public/**",
         "src/core/types/**",
         "src/core/theme/**",
+        "src/core/router/**",
+        "commitlint.config.cjs",
       ],
     },
   },

@@ -14,5 +14,5 @@ login,form_password_invalid_format,Invalid password format
 login,notification_error,Login Failed
 login,notification_success,Login Success
 login,cta_login,Login
-products,title,Products Catalogue
-products,description,Products Catalogue
+products,title,Discover Trending Products Just for You!
+products,subtitle,Browse our curated catalogue from FakeStore. Find the best deals and most popular items in one place!

@@ -49,6 +49,7 @@ A modern React + TypeScript + Vite application featuring authentication, product
 - **/locales & /translations**  
   - Translations are managed in CSV for easy updates by product teams.
   - A script generates i18n JSON files automatically from CSV.
+  - run npm:setupi18n after you finished add translation in CSV file.
 
 - **/hooks, /components, /react-query**  
   - Custom hooks, reusable components, and React Query hooks for server state.
@@ -112,8 +113,7 @@ A modern React + TypeScript + Vite application featuring authentication, product
 ## 🌐 Deployment
 
 This site is deployed at:  
-**[https://your-deployment-url.com](https://your-deployment-url.com)**  
-_(replace with your actual deployment URL)_
+**[https://trutrip-test.vercel.app/](https://trutrip-test.vercel.app/)**  
 
 ---
 
