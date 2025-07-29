@@ -1,21 +1,23 @@
 import {
   Grid,
   Paper,
-  TextField,
   Typography,
-  styled,
+  Box,
+  TextField,
   Drawer,
   useMediaQuery,
   Button,
-  Box,
 } from "@mui/material";
+import { styled } from "@mui/material/styles";
 import { useTheme } from "@mui/material/styles";
-import { useGetCategories } from "../../react-query/hooks/useGetCategories";
-import { CategoryFilterProducts } from "../../components/category_filter";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { useSearchParams } from "react-router";
 
-const StyledPaper = styled(Paper)({
+import { useGetCategories } from "../../react-query/hooks/useGetCategories";
+import { CategoryFilterProducts } from "../../components/category_filter";
+import { useFilterSearch } from "../../hooks/useFilterSearch";
+
+export const StyledPaper = styled(Paper)({
   boxShadow: "0px 16px 48px 0px #00000014",
   paddingInline: "1.5rem",
   paddingBlock: "1.5rem",
@@ -25,29 +27,102 @@ const StyledPaper = styled(Paper)({
   gap: "1rem",
 });
 
-const FullWidthGrid = styled(Grid)({
+export const FullWidthGrid = styled(Grid)({
   width: "100%",
 });
 
-const SectionTitle = styled(Typography)({
+export const SectionTitle = styled(Typography)({
   fontWeight: "bold",
 });
 
+export const MobileFilterButton = styled(Box)(({ theme }) => ({
+  position: "fixed",
+  left: 0,
+  right: 0,
+  bottom: 0,
+  zIndex: 1201,
+  padding: theme.spacing(2),
+  background: "white",
+}));
+
+interface FilterContentProps {
+  searchInput: string;
+  handleChangeSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  selectedCategory: { id: number; name: string } | null;
+  items?: Array<{ id: number; name: string }>;
+  handleCheckCategoryFilter: (data: { id: number; name: string }) => void;
+  isMobile: boolean;
+  handleApplySearch?: () => void;
+}
+
+const FilterContent: React.FC<FilterContentProps> = ({
+  searchInput,
+  handleChangeSearch,
+  selectedCategory,
+  items,
+  handleCheckCategoryFilter,
+  isMobile,
+  handleApplySearch,
+}) => (
+  <Box sx={{ position: "relative", pb: isMobile ? "5.5rem" : 0 }}>
+    <Grid container gap={1}>
+      <FullWidthGrid>
+        <SectionTitle variant="subtitle1" gutterBottom>
+          Search
+        </SectionTitle>
+      </FullWidthGrid>
+      <FullWidthGrid>
+        <TextField
+          label="Search product in catalog"
+          value={searchInput}
+          onChange={handleChangeSearch}
+          fullWidth
+        />
+      </FullWidthGrid>
+    </Grid>
+
+    <Grid container gap={1}>
+      <FullWidthGrid>
+        <CategoryFilterProducts
+          selected={selectedCategory}
+          items={items}
+          onCheck={handleCheckCategoryFilter}
+        />
+      </FullWidthGrid>
+    </Grid>
+
+    {isMobile && handleApplySearch && (
+      <MobileFilterButton>
+        <Button
+          variant="contained"
+          onClick={handleApplySearch}
+          fullWidth
+          sx={{ borderRadius: 2 }}
+        >
+          Terapkan Filter
+        </Button>
+      </MobileFilterButton>
+    )}
+  </Box>
+);
+
 export const FilterProducts = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-
-  const searchValue = searchParams.get("search") || "";
-  const categoryValue = searchParams.get("category") || "";
-
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [open, setOpen] = useState(false);
+
+  const searchValue = searchParams.get("search") || "";
+  const categoryValue = searchParams.get("category") || "";
 
   const { data } = useGetCategories();
   const items = data?.map((item) => ({
     id: item.id,
     name: item.name,
   }));
+
+  const { searchInput, handleChangeSearch, handleApplySearch } =
+    useFilterSearch(searchValue);
 
   const handleCheckCategoryFilter = (data: { id: number; name: string }) => {
     const params = {
@@ -63,104 +138,14 @@ export const FilterProducts = () => {
     setSearchParams(params);
   };
 
-  const debounceRef = useRef<NodeJS.Timeout | null>(null);
-  const [searchInput, setSearchInput] = useState(searchValue);
-
-  const handleChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.currentTarget.value;
-    setSearchInput(value);
-    if (!isMobile) {
-      if (debounceRef.current) {
-        clearTimeout(debounceRef.current);
-      }
-      debounceRef.current = setTimeout(() => {
-        const params = {
-          ...Object.fromEntries(searchParams),
-        };
-        if (value) {
-          params.search = value;
-        } else {
-          delete params.search;
-        }
-        setSearchParams(params);
-      }, 500);
-    }
-  };
-
-  const handleApplySearch = () => {
-    const params = {
-      ...Object.fromEntries(searchParams),
-    };
-    if (searchInput) {
-      params.search = searchInput;
-    } else {
-      delete params.search;
-    }
-    setSearchParams(params);
-    setOpen(false);
-  };
   const selectedCategory =
     items?.find((item) => String(item.id) === categoryValue) || null;
-
-  const filterContent = (
-    <Box sx={{ position: "relative", pb: isMobile ? "5.5rem" : 0 }}>
-      <Grid container gap={1}>
-        <FullWidthGrid>
-          <SectionTitle variant="subtitle1" gutterBottom>
-            {"Search"}
-          </SectionTitle>
-        </FullWidthGrid>
-        <FullWidthGrid>
-          <TextField
-            label={"Search product in catalog"}
-            value={searchInput}
-            onChange={handleChangeSearch}
-            fullWidth
-          />
-        </FullWidthGrid>
-      </Grid>
-
-      <Grid container gap={1}>
-        <FullWidthGrid>
-          <CategoryFilterProducts
-            selected={selectedCategory}
-            items={items}
-            onCheck={handleCheckCategoryFilter}
-          />
-        </FullWidthGrid>
-      </Grid>
-
-      {isMobile && (
-        <Box
-          sx={{
-            position: "fixed",
-            left: 0,
-            right: 0,
-            bottom: 0,
-            zIndex: 1201,
-            px: 2,
-            py: 2,
-            background: "white",
-          }}
-        >
-          <Button
-            variant="contained"
-            onClick={handleApplySearch}
-            fullWidth
-            sx={{ borderRadius: 2 }}
-          >
-            Terapkan Filter
-          </Button>
-        </Box>
-      )}
-    </Box>
-  );
 
   if (isMobile) {
     return (
       <Box sx={{ width: "100%" }}>
         <Button variant="contained" onClick={() => setOpen(true)} fullWidth>
-          {"Filter"}
+          Filter
         </Button>
         <Drawer
           anchor="bottom"
@@ -177,11 +162,33 @@ export const FilterProducts = () => {
             },
           }}
         >
-          {filterContent}
+          <FilterContent
+            searchInput={searchInput}
+            handleChangeSearch={(e) => handleChangeSearch(e, isMobile)}
+            selectedCategory={selectedCategory}
+            items={items}
+            handleCheckCategoryFilter={handleCheckCategoryFilter}
+            isMobile={isMobile}
+            handleApplySearch={() => {
+              handleApplySearch();
+              setOpen(false);
+            }}
+          />
         </Drawer>
       </Box>
     );
   }
 
-  return <StyledPaper elevation={0}>{filterContent}</StyledPaper>;
+  return (
+    <StyledPaper elevation={0}>
+      <FilterContent
+        searchInput={searchInput}
+        handleChangeSearch={(e) => handleChangeSearch(e, isMobile)}
+        selectedCategory={selectedCategory}
+        items={items}
+        handleCheckCategoryFilter={handleCheckCategoryFilter}
+        isMobile={isMobile}
+      />
+    </StyledPaper>
+  );
 };
