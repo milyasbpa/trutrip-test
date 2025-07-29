@@ -1,69 +1,135 @@
-# React + TypeScript + Vite
+# Trutrip Test Project
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern React + TypeScript + Vite application featuring authentication, product catalogue with filtering and search, robust code quality tooling, and internationalization support.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Setup Instructions
 
-## Expanding the ESLint configuration
+1. **Clone the repository**
+   ```sh
+   git clone <your-repo-url>
+   cd trutrip-test
+   ```
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+2. **Install dependencies**
+   ```sh
+   npm install
+   ```
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+3. **Run the development server**
+   ```sh
+   npm run dev
+   ```
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+4. **Lint, format, and test**
+   ```sh
+   npm run lint      # Run ESLint
+   npm run format    # Run Prettier
+   npm run test      # Run Vitest unit tests
+   ```
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+5. **Prepare git hooks (husky)**
+   ```sh
+   npx husky install
+   ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🗂️ Codebase Structure
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- **/core**  
+  Shared utilities, theme, API clients, i18n, and global configuration.
+
+- **/features**  
+  Domain-driven modules, e.g.:
+  - `/features/auth` – Authentication (login)
+  - `/features/private/products` – Product catalogue, filtering, infinite scroll, etc.
+
+- **/locales & /translations**  
+  - Translations are managed in CSV for easy updates by product teams.
+  - A script generates i18n JSON files automatically from CSV.
+
+- **/hooks, /components, /react-query**  
+  - Custom hooks, reusable components, and React Query hooks for server state.
+
+- **/test, /__mocks__**  
+  - Unit and integration tests using Vitest and React Testing Library.
+
+---
+
+## 🔐 Feature: Login
+
+- **Form validation** using [React Hook Form](https://react-hook-form.com/).
+- **Validation rules:**  
+  - Email: required, must be a valid email.
+  - Password: required.
+- **Dummy authentication:**  
+  - Only accepts:
+    - **Email:** `admin@example.com`
+    - **Password:** `P@ssw0rd`
+  - No real API; uses a dummy user for authentication logic.
+- **UX:**  
+  - Shows validation errors inline.
+  - Shows error if credentials are incorrect.
+
+---
+
+## 🛒 Feature: Product Catalogue
+
+- **Catalogue page** accessible after login.
+- **Filter by category:**  
+  - Select one or more categories to filter products.
+- **Search by title:**  
+  - Search input is debounced for performance.
+- **Infinite scroll pagination:**  
+  - Loads more products as you scroll.
+- **Server state caching:**  
+  - Uses [React Query](https://tanstack.com/query/latest) for efficient data fetching and caching.
+- **Material UI:**  
+  - All UI built with [Material UI](https://mui.com/) for consistency and accessibility.
+
+---
+
+## 🌍 Internationalization (i18n)
+
+- **Translation management:**  
+  - Product/content teams can update translations via CSV.
+  - A script generates i18n JSON files automatically.
+- **Easy to add new languages** by updating the CSV and regenerating.
+
+---
+
+## 🛡️ Code Quality
+
+- **ESLint** with type-aware rules for TypeScript.
+- **Prettier** for consistent code formatting.
+- **Husky** and **commitlint** enforce commit message standards and run lint/tests before commit.
+- **Vitest** for fast, modern unit testing.
+
+---
+
+## 🌐 Deployment
+
+This site is deployed at:  
+**[https://your-deployment-url.com](https://your-deployment-url.com)**  
+_(replace with your actual deployment URL)_
+
+---
+
+## 💡 Additional Notes
+
+- **Domain-driven design:**  
+  - Features are organized by domain for scalability and maintainability.
+- **Server state management:**  
+  - React Query is used for all server interactions, enabling caching, background updates, and optimistic UI.
+- **Material UI:**  
+  - Ensures a modern, accessible, and responsive design system.
+- **Commit hooks:**  
+  - Prevent bad commits and ensure code quality before merging.
+- **i18n workflow:**  
+  - Designed for non-technical users to update translations easily.
+
+
+Feel free to reach out if you need more details or want to see specific parts of the code.
+Maintainer: bashirahilyas@gmail.com
