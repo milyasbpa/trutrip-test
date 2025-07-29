@@ -16,6 +16,7 @@ import { useSearchParams } from "react-router";
 import { useGetCategories } from "../../react-query/hooks/useGetCategories";
 import { CategoryFilterProducts } from "../../components/category_filter";
 import { useFilterSearch } from "../../hooks/useFilterSearch";
+import { useTranslation } from "react-i18next";
 
 export const StyledPaper = styled(Paper)({
   boxShadow: "0px 16px 48px 0px #00000014",
@@ -63,54 +64,64 @@ const FilterContent: React.FC<FilterContentProps> = ({
   handleCheckCategoryFilter,
   isMobile,
   handleApplySearch,
-}) => (
-  <Box sx={{ position: "relative", pb: isMobile ? "5.5rem" : 0 }}>
-    <Grid container gap={1}>
-      <FullWidthGrid>
-        <SectionTitle variant="subtitle1" gutterBottom>
-          Search
-        </SectionTitle>
-      </FullWidthGrid>
-      <FullWidthGrid>
-        <TextField
-          label="Search product in catalog"
-          value={searchInput}
-          onChange={handleChangeSearch}
-          fullWidth
-        />
-      </FullWidthGrid>
-    </Grid>
+}) => {
+  const { t } = useTranslation();
+  return (
+    <Box sx={{ position: "relative", pb: isMobile ? "5.5rem" : 0 }}>
+      <Grid container gap={1}>
+        <FullWidthGrid>
+          <SectionTitle
+            data-testid="filter_search"
+            variant="subtitle1"
+            gutterBottom
+          >
+            {t("products:filter_search")}
+          </SectionTitle>
+        </FullWidthGrid>
+        <FullWidthGrid>
+          <TextField
+            data-testid="filter_search_placeholder"
+            label={t("products:filter_search_placeholder")}
+            value={searchInput}
+            onChange={handleChangeSearch}
+            fullWidth
+          />
+        </FullWidthGrid>
+      </Grid>
 
-    <Grid container gap={1}>
-      <FullWidthGrid>
-        <CategoryFilterProducts
-          selected={selectedCategory}
-          items={items}
-          onCheck={handleCheckCategoryFilter}
-        />
-      </FullWidthGrid>
-    </Grid>
+      <Grid container gap={1}>
+        <FullWidthGrid>
+          <CategoryFilterProducts
+            title={t("products:filter_categories")}
+            selected={selectedCategory}
+            items={items}
+            onCheck={handleCheckCategoryFilter}
+          />
+        </FullWidthGrid>
+      </Grid>
 
-    {isMobile && handleApplySearch && (
-      <MobileFilterButton>
-        <Button
-          variant="contained"
-          onClick={handleApplySearch}
-          fullWidth
-          sx={{ borderRadius: 2 }}
-        >
-          Terapkan Filter
-        </Button>
-      </MobileFilterButton>
-    )}
-  </Box>
-);
+      {isMobile && handleApplySearch && (
+        <MobileFilterButton>
+          <Button
+            variant="contained"
+            onClick={handleApplySearch}
+            fullWidth
+            sx={{ borderRadius: 2 }}
+          >
+            {t("products:filter_apply")}
+          </Button>
+        </MobileFilterButton>
+      )}
+    </Box>
+  );
+};
 
 export const FilterProducts = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [open, setOpen] = useState(false);
+  const { t } = useTranslation();
 
   const searchValue = searchParams.get("search") || "";
   const categoryValue = searchParams.get("category") || "";
@@ -145,7 +156,7 @@ export const FilterProducts = () => {
     return (
       <Box sx={{ width: "100%" }}>
         <Button variant="contained" onClick={() => setOpen(true)} fullWidth>
-          Filter
+          {t("products:filter")}
         </Button>
         <Drawer
           anchor="bottom"

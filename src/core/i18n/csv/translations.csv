@@ -1,10 +1,10 @@
 namespace,key,en
 common,close,close
-login,banner_title,Buy cheapest product in Kaldoo
-login,banner_description,Gabung dan rasakan cara termudah untuk membeli
+login,banner_title,Discover Trending Products Just for You!
+login,banner_description,Browse our curated catalogue from FakeStore. Find the best deals and most popular items in one place!
 login,form_title,Login Now
 login,form_email_label,Email
-login,form_email_placeholder,example: kaldoo@gmail.com
+login,form_email_placeholder,example: test@gmail.com
 login,form_email_required,Email is required
 login,form_email_invalid_format,Invalid email format
 login,form_password_label,Password
@@ -16,3 +16,8 @@ login,notification_success,Login Success
 login,cta_login,Login
 products,title,Discover Trending Products Just for You!
 products,subtitle,Browse our curated catalogue from FakeStore. Find the best deals and most popular items in one place!
+products,filter,Filter
+products,filter_search,Search
+products,filter_search_placeholder,Search product in catalog
+products,filter_apply,Apply
+products,filter_categories,Categories

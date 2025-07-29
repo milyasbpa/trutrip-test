@@ -80,14 +80,16 @@ describe("FilterProducts", () => {
     it("should render search input and category filter", () => {
       renderComponent(false);
 
-      expect(screen.getByLabelText("Search product in catalog")).toBeDefined();
-      expect(screen.getByText("Search")).toBeDefined();
+      expect(screen.getByTestId("filter_search_placeholder")).toBeDefined();
+      expect(screen.getByTestId("filter_search")).toBeDefined();
     });
 
     it("should update URL when searching", async () => {
       renderComponent(false);
 
-      const searchInput = screen.getByLabelText("Search product in catalog");
+      const searchInput = screen.getByLabelText(
+        "products:filter_search_placeholder",
+      );
       fireEvent.change(searchInput, { target: { value: "test search" } });
 
       await waitFor(() => {
@@ -114,38 +116,40 @@ describe("FilterProducts", () => {
   describe("Mobile View", () => {
     it("should render filter button in mobile view", () => {
       renderComponent(true);
-      expect(screen.getByText("Filter")).toBeDefined();
+      expect(screen.getByText("products:filter")).toBeDefined();
     });
 
     it("should open drawer when clicking filter button", () => {
       renderComponent(true);
 
-      const filterButton = screen.getByText("Filter");
+      const filterButton = screen.getByText("products:filter");
       fireEvent.click(filterButton);
 
-      expect(screen.getByText("Terapkan Filter")).toBeDefined();
+      expect(screen.getByText("products:filter_apply")).toBeDefined();
     });
 
     it("should apply filter and close drawer on apply button click", async () => {
       renderComponent(true);
 
       // Open drawer
-      const filterButton = screen.getByText("Filter");
+      const filterButton = screen.getByText("products:filter");
       fireEvent.click(filterButton);
 
       // Enter search term
-      const searchInput = screen.getByLabelText("Search product in catalog");
+      const searchInput = screen.getByLabelText(
+        "products:filter_search_placeholder",
+      );
       fireEvent.change(searchInput, { target: { value: "mobile test" } });
 
       // Click apply button
-      const applyButton = screen.getByText("Terapkan Filter");
+      const applyButton = screen.getByText("products:filter_apply");
       fireEvent.click(applyButton);
 
       await waitFor(() => {
         expect(screen.getByTestId("location-display").textContent).toContain(
           "mobile+test",
         );
-        expect(screen.queryByText("Terapkan Filter")).toBeNull();
+        expect(screen.queryByText("products:filter_apply")).toBeNull();
       });
     });
   });
@@ -155,7 +159,9 @@ describe("FilterProducts", () => {
       vi.mocked(useGetCategories);
 
       renderComponent(false);
-      expect(screen.getByLabelText("Search product in catalog")).toBeDefined();
+      expect(
+        screen.getByLabelText("products:filter_search_placeholder"),
+      ).toBeDefined();
     });
   });
 });

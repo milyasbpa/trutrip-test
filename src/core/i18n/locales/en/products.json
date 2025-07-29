@@ -1,4 +1,9 @@
 {
   "title": "Discover Trending Products Just for You!",
-  "subtitle": "Browse our curated catalogue from FakeStore. Find the best deals and most popular items in one place!"
+  "subtitle": "Browse our curated catalogue from FakeStore. Find the best deals and most popular items in one place!",
+  "filter": "Filter",
+  "filter_search": "Search",
+  "filter_search_placeholder": "Search product in catalog",
+  "filter_apply": "Apply",
+  "filter_categories": "Categories"
 }
